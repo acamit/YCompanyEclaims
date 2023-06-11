@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Duende.IdentityServer" Version="6.2.3" />
+    <PackageReference Include="Duende.IdentityServer.AspNetIdentity" Version="6.2.3" />
+    <PackageReference Include="Duende.IdentityServer.EntityFramework" Version="6.2.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.14" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.14">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.14" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\Migrations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Framework\YCompany.Claims.Caching\YCompany.Caching.csproj" />
+    <ProjectReference Include="..\..\..\Framework\YCompany.Claims.ExceptionHandling\YCompany.ExceptionHandling.csproj" />
+    <ProjectReference Include="..\..\..\Framework\YCompany.Claims.Logging\YCompany.Logging.csproj" />
+    <ProjectReference Include="..\..\..\Framework\YCompany.Claims.MessagingQueue\YCompany.MessagingQueue.csproj" />
+    <ProjectReference Include="..\..\..\Framework\YCompany.HealthChecks\YCompany.HealthChecks.csproj" />
+  </ItemGroup>
+
+</Project>

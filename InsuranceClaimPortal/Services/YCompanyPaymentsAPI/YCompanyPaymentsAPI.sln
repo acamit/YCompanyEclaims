@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33414.496
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YCompanyPaymentsAPI", "YCompanyPaymentsAPI\YCompanyPaymentsAPI.csproj", "{0ADAE4C9-127C-4E0A-9F2D-E259BD88EB64}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{1B3C4350-80D5-47BD-88A8-3D797B1A4EAE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApplicationCore", "ApplicationCore", "{2B93C631-E837-4519-B885-57F1F5221983}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{4C828C50-C2E5-4267-930D-CABA61F7BC9B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YCompany.Payments.Domain", "YCompany.Payments.Domain\YCompany.Payments.Domain.csproj", "{B04C35E9-7F27-463B-8A5E-C276E7B43210}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YCompany.Payments.Services", "YCompany.Payments.Services\YCompany.Payments.Services.csproj", "{D9CD9405-C14B-422F-A9D6-E336A5CB30CF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YCompany.Payments.DataAccess", "YCompany.Payments.DataAccess\YCompany.Payments.DataAccess.csproj", "{E9B82209-DCBE-470C-BC06-F01C1C2EFF2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YCompany.Payments.Infrastructure", "YCompany.Payments.Infrastructure\YCompany.Payments.Infrastructure.csproj", "{6510CCB4-8617-46C7-98D2-8626B91C22FC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0ADAE4C9-127C-4E0A-9F2D-E259BD88EB64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0ADAE4C9-127C-4E0A-9F2D-E259BD88EB64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0ADAE4C9-127C-4E0A-9F2D-E259BD88EB64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0ADAE4C9-127C-4E0A-9F2D-E259BD88EB64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B04C35E9-7F27-463B-8A5E-C276E7B43210}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B04C35E9-7F27-463B-8A5E-C276E7B43210}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B04C35E9-7F27-463B-8A5E-C276E7B43210}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B04C35E9-7F27-463B-8A5E-C276E7B43210}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9CD9405-C14B-422F-A9D6-E336A5CB30CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9CD9405-C14B-422F-A9D6-E336A5CB30CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9CD9405-C14B-422F-A9D6-E336A5CB30CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9CD9405-C14B-422F-A9D6-E336A5CB30CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9B82209-DCBE-470C-BC06-F01C1C2EFF2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9B82209-DCBE-470C-BC06-F01C1C2EFF2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9B82209-DCBE-470C-BC06-F01C1C2EFF2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9B82209-DCBE-470C-BC06-F01C1C2EFF2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6510CCB4-8617-46C7-98D2-8626B91C22FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6510CCB4-8617-46C7-98D2-8626B91C22FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6510CCB4-8617-46C7-98D2-8626B91C22FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6510CCB4-8617-46C7-98D2-8626B91C22FC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0ADAE4C9-127C-4E0A-9F2D-E259BD88EB64} = {1B3C4350-80D5-47BD-88A8-3D797B1A4EAE}
+		{B04C35E9-7F27-463B-8A5E-C276E7B43210} = {2B93C631-E837-4519-B885-57F1F5221983}
+		{D9CD9405-C14B-422F-A9D6-E336A5CB30CF} = {2B93C631-E837-4519-B885-57F1F5221983}
+		{E9B82209-DCBE-470C-BC06-F01C1C2EFF2C} = {4C828C50-C2E5-4267-930D-CABA61F7BC9B}
+		{6510CCB4-8617-46C7-98D2-8626B91C22FC} = {4C828C50-C2E5-4267-930D-CABA61F7BC9B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {16B9942A-D623-4B48-A1EA-1CF2B20DA532}
+	EndGlobalSection
+EndGlobal
