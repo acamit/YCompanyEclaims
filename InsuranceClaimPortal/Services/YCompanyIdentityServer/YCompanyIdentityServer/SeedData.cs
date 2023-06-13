@@ -53,17 +53,16 @@ public class SeedData
             await configurationDbContext.Clients.AddRangeAsync(DevelopmentSeedData.ClientEntities);
 
             await configurationDbContext.SaveChangesAsync();
+        }
+        /*
+         * Identity Resources.
+         * 
+         */
+        if (!await configurationDbContext.IdentityResources.AnyAsync())
+        {
+            await configurationDbContext.IdentityResources.AddRangeAsync(DevelopmentSeedData.IdentityResourceEntities);
 
-            /*
-             * Identity Resources.
-             * 
-             */
-            if (!await configurationDbContext.IdentityResources.AnyAsync())
-            {
-                await configurationDbContext.IdentityResources.AddRangeAsync(DevelopmentSeedData.IdentityResourceEntities);
-
-                await configurationDbContext.SaveChangesAsync();
-            }
+            await configurationDbContext.SaveChangesAsync();
         }
 
         return scope;
