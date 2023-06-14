@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using YCompany.Claims.DataAccess;
 using YCompany.Claims.Domain.InfrastructureInterfaces;
 using YCompany.Claims.ExceptionHandling;
@@ -27,18 +28,14 @@ builder.Host.ConfigureLogging(logging =>
 
 // Add services to the container.
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer("Bearer", options =>
-    {
-        options.Authority = "https://localhost:7001/"; // Identity server URL
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            /*
-            Audience validation is disabled here because access to the api is modeled with ApiScopes only. By default, no audience will be emitted unless the api is modeled with ApiResources instead. See here for a more in-depth discussion.
-            https://docs.duendesoftware.com/identityserver/v6/apis/aspnetcore/jwt/#adding-audience-validation
-            */
-            ValidateAudience = false
-        };
-    }
+   .AddJwtBearer(jwtbearerOptions =>
+   {
+       jwtbearerOptions.Authority = builder.Configuration["Authentication:Authority"];
+       jwtbearerOptions.Audience = builder.Configuration["Authentication:Audience"];
+       jwtbearerOptions.TokenValidationParameters.ValidateAudience = true;
+       jwtbearerOptions.TokenValidationParameters.ValidateIssuer = true;
+       jwtbearerOptions.TokenValidationParameters.ValidateIssuerSigningKey = true;
+   }
 );
 
 
@@ -53,14 +50,61 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("ApiScope", policy =>
     {
         policy.RequireAuthenticatedUser();
-        policy.RequireClaim("scope", "ClaimsAPI");
+        policy.RequireClaim("scope", "https://ycompany.com/claims");
     });
 });
 
 builder.Services.AddControllers();
+builder.Services.AddCors(corsOptions =>
+{
+    corsOptions.AddDefaultPolicy(corsPolicyBuilder =>
+    {
+        corsPolicyBuilder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+    });
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(
+    swaggerGenOptions =>
+    {
+        swaggerGenOptions.SwaggerDoc("v1", new OpenApiInfo
+        {
+            Title = "Claims API",
+            Version = "v1"
+        });
+        swaggerGenOptions.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+        {
+            Type = SecuritySchemeType.OAuth2,
+            Flows = new OpenApiOAuthFlows
+            {
+                ClientCredentials = new OpenApiOAuthFlow
+                {
+                    TokenUrl = new Uri($"{builder.Configuration["Authentication:Authority"]}/connect/token"),
+                    Scopes = { { "https://ycompany.com/claims", "Claims API" } }
+                }
+            }
+        });
+
+        swaggerGenOptions.AddSecurityRequirement(new OpenApiSecurityRequirement
+        {
+            {
+                new OpenApiSecurityScheme
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "oauth2"
+                    }
+                },
+                new List<string>
+                {
+                    "https://ycompany.com/claims"
+                }
+             }
+        });
+    });
+
 builder.Services.AddTransient<IMessageBroker, SQSService>();
 builder.Services.AddTransient<IClaimsStorageService, SqlStorageService>();
 builder.Services.AddHealthChecks().AddCheck<StorageHealthChecks>("Storage");
@@ -77,6 +121,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors();
 /*
  * Configure custom middleware
  */

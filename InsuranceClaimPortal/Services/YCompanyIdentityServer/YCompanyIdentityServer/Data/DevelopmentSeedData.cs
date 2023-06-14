@@ -52,11 +52,22 @@ namespace YCompanyIdentityServer.Data
                 }
         };
 
+        public static ApiResource ClaimsAPIResource = new ApiResource
+        {
+            Name = "ClaimsAPIGuid",//Guid.NewGuid().ToString(),
+            DisplayName = "Claims API",
+            Scopes = new List<string>()
+                {
+                    "https://ycompany.com/claims"
+                }
+        };
+
         public static List<ApiResource> ApiResources = new List<ApiResource>
         {
             ApiResource,
             PaymentsAPIResource,
-            ThirdPartyAPIResource
+            ThirdPartyAPIResource,
+            ClaimsAPIResource
         };
 
 
@@ -83,7 +94,7 @@ namespace YCompanyIdentityServer.Data
         };
         public static ApiScope ClaimsAPIScope = new ApiScope()
         {
-            Name = "https://ycompany.com/claimsAPI", // same as above
+            Name = "https://ycompany.com/claims", // same as above
             DisplayName = "Claims API",
         };
 
@@ -100,8 +111,8 @@ namespace YCompanyIdentityServer.Data
                 //ClientSecrets = new List<Secret> { new Secret("secret") },
                 ClientName = "Console Applications",
                 AllowedGrantTypes = GrantTypes.ClientCredentials,
-                AllowedScopes = new List<string>() { "https://ycompany.com/payments", "https://ycompany.com/thirdparty" },
-                AllowedCorsOrigins = new List<string>() { "https://localhost:7001", "https://localhost:7143" } // api url
+                AllowedScopes = new List<string>() { "https://ycompany.com/payments", "https://ycompany.com/thirdparty" , "https://ycompany.com/claims"},
+                AllowedCorsOrigins = new List<string>() { "https://localhost:7001", "https://localhost:7143" , "https://localhost:7047" } // api url
             },
 
             new Client()
