@@ -81,8 +81,13 @@ namespace YCompanyIdentityServer.Data
             Name = "https://ycompany.com/thirdparty", // same as above
             DisplayName = "ThirdParty API",
         };
+        public static ApiScope ClaimsAPIScope = new ApiScope()
+        {
+            Name = "https://ycompany.com/claimsAPI", // same as above
+            DisplayName = "Claims API",
+        };
 
-        public static List<ApiScope> ApiScopes = new List<ApiScope>() { ApiScope, PaymentsAPIScope, ThirdPartyAPIScope };
+        public static List<ApiScope> ApiScopes = new List<ApiScope>() { ApiScope, PaymentsAPIScope, ThirdPartyAPIScope, ClaimsAPIScope };
 
         /*
         * Clients
