@@ -107,7 +107,7 @@ namespace YCompanyIdentityServer.Data
                 ClientName = "Web Applications",
                 AllowedGrantTypes = GrantTypes.Code,
                 AllowedScopes = new List<string>() { "https://ycompany.com/api", "openid", "profile", "email", "https://ycompany.com/payments", "https://ycompany.com/thirdparty" },
-                RedirectUris = new List<string> { "https://localhost:7002/signin-oidc" },
+                RedirectUris = new List<string> { "https://localhost:7002/signin-oidc" }, // redirect back to this URL after login
                 PostLogoutRedirectUris = new List<string> { "https://localhost:7002/signout-callback-oidc" }
             },
 

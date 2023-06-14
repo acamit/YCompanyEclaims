@@ -12,27 +12,53 @@ public class SeedData
     public static async Task<IServiceScope> EnsureSeedData(WebApplication app)
     {
         using var scope = app.Services.CreateScope();
-        await scope.ServiceProvider.GetRequiredService<ApplicationDbContext>().Database.MigrateAsync();
-        await scope.ServiceProvider.GetRequiredService<ConfigurationDbContext>().Database.MigrateAsync();
-        await scope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>().Database.MigrateAsync();
+        await InitialDBMigrations(scope);
 
-        var userManger = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-        if (await userManger.FindByNameAsync("amitchawla") == null)
-        {
-            await userManger.CreateAsync(DevelopmentSeedData.DefaultUser, DevelopmentSeedData.DefaultPassword);
-        }
+        await CreateFirstUser(scope);
         var configurationDbContext = scope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
 
+        await AddAPIResources(configurationDbContext);
+
+        await AddAPIScopes(configurationDbContext);
+
+        await AddClients(configurationDbContext);
+
+        await AddIdentityResources(configurationDbContext);
+
+        return scope;
+    }
+
+    private static async Task AddIdentityResources(ConfigurationDbContext configurationDbContext)
+    {
         /*
-         * Api resources
-         *
-         */
-        if (!await configurationDbContext.ApiResources.AnyAsync())
+        * Identity Resources.
+        * 
+        */
+        if (!await configurationDbContext.IdentityResources.AnyAsync())
         {
-            await configurationDbContext.ApiResources.AddRangeAsync(DevelopmentSeedData.ApiResources.Select(x => x.ToEntity()).ToList());
+            await configurationDbContext.IdentityResources.AddRangeAsync(DevelopmentSeedData.IdentityResourceEntities);
+
             await configurationDbContext.SaveChangesAsync();
         }
+    }
 
+    private static async Task AddClients(ConfigurationDbContext configurationDbContext)
+    {
+        /*
+         * Clients
+         *
+         */
+
+        if (!await configurationDbContext.Clients.AnyAsync())
+        {
+            await configurationDbContext.Clients.AddRangeAsync(DevelopmentSeedData.ClientEntities);
+
+            await configurationDbContext.SaveChangesAsync();
+        }
+    }
+
+    private static async Task AddAPIScopes(ConfigurationDbContext configurationDbContext)
+    {
         /*
          * Api Scopes
          *
@@ -43,28 +69,35 @@ public class SeedData
 
             await configurationDbContext.SaveChangesAsync();
         }
+    }
 
+    private static async Task AddAPIResources(ConfigurationDbContext configurationDbContext)
+    {
         /*
-        * Clients
-        *
-        */
-        if (!await configurationDbContext.Clients.AnyAsync())
-        {
-            await configurationDbContext.Clients.AddRangeAsync(DevelopmentSeedData.ClientEntities);
-
-            await configurationDbContext.SaveChangesAsync();
-        }
-        /*
-         * Identity Resources.
-         * 
+         * Api resources
+         *
          */
-        if (!await configurationDbContext.IdentityResources.AnyAsync())
+        if (!await configurationDbContext.ApiResources.AnyAsync())
         {
-            await configurationDbContext.IdentityResources.AddRangeAsync(DevelopmentSeedData.IdentityResourceEntities);
-
+            await configurationDbContext.ApiResources.AddRangeAsync(DevelopmentSeedData.ApiResources.Select(x => x.ToEntity()).ToList());
             await configurationDbContext.SaveChangesAsync();
         }
+    }
 
-        return scope;
+    private static async Task CreateFirstUser(IServiceScope scope)
+    {
+        var userManger = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+        if (await userManger.FindByNameAsync("amitchawla") == null)
+        {
+            await userManger.CreateAsync(DevelopmentSeedData.DefaultUser, DevelopmentSeedData.DefaultPassword);
+        }
+    }
+
+    private static async Task InitialDBMigrations(IServiceScope scope)
+    {
+        // migrate tables initially. Initial migrations are created using ef command for initial migration
+        await scope.ServiceProvider.GetRequiredService<ApplicationDbContext>().Database.MigrateAsync();
+        await scope.ServiceProvider.GetRequiredService<ConfigurationDbContext>().Database.MigrateAsync();
+        await scope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>().Database.MigrateAsync();
     }
 }
