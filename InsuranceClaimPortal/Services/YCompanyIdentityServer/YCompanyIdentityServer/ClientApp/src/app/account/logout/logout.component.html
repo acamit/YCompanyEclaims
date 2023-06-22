@@ -1,0 +1,11 @@
+<ng-container *ngIf="response$ | async as response ">
+  <ng-container *ngIf="response.prompt;else template">
+    <h1> Would you like to logout? </h1>
+    <button (click)="onClick()">Yes</button>
+  </ng-container>
+  <ng-template #template>
+    <h1>You are now logoged out.</h1>
+    <p *ngIf="response.postLogoutRedirectUrl">Click <a [href]="response.postLogoutRedirectUrl">here</a> to return to application.</p>
+    <iframe *ngIf ="response.iFrameUrl" [src] ="response.iFrameUrl"></iframe>
+  </ng-template>
+</ng-container>

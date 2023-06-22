@@ -1,0 +1,12 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="userName">UserName:</label>
+    <input autocomplete="username" formControlName="userName" id="userName" required type="text" />
+  </div>
+
+  <div>
+    <label for="password">UserName:</label>
+    <input autocomplete="current-password" formControlName="password" id="password" required type="password" />
+  </div>
+  <button type="submit" [disabled]="loginForm.invalid">Login</button>
+</form>

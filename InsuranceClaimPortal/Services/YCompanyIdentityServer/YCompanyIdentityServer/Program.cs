@@ -36,7 +36,13 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
  * Register Identity Server for production
  * 
  */
-builder.Services.AddIdentityServer()
+builder.Services.AddIdentityServer(identityServerOptions =>
+{
+    identityServerOptions.UserInteraction.LoginUrl = "/account/login";
+    identityServerOptions.UserInteraction.LoginReturnUrlParameter = "returnUrl";
+    identityServerOptions.UserInteraction.LogoutUrl = "/account/logout";
+    identityServerOptions.UserInteraction.LogoutIdParameter = "logoutId";
+})
     .AddAspNetIdentity<ApplicationUser>()
     //.AddInMemoryApiResources(DevelopmentSeedData.ApiResources)
     //.AddInMemoryApiScopes(DevelopmentSeedData.ApiScopes)

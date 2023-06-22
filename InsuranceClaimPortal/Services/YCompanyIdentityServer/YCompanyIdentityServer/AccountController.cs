@@ -1,8 +1,6 @@
-﻿using Duende.IdentityServer.EntityFramework.Entities;
-using Duende.IdentityServer.Services;
+﻿using Duende.IdentityServer.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Runtime.InteropServices;
 using YCompanyIdentityServer.Models;
 
 namespace YCompanyIdentityServer
