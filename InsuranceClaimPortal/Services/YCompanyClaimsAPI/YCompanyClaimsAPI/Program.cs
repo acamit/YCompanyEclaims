@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using YCompany.Claims.DataAccess;
 using YCompany.Claims.Domain.InfrastructureInterfaces;

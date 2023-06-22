@@ -8,6 +8,8 @@ using YCompanyIdentityServer.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddControllers();
+
 builder.Services.AddDbContext<ApplicationDbContext>((serviceProvider, dbContextOptionsBuilder) =>
 {
     dbContextOptionsBuilder
@@ -63,6 +65,10 @@ app.UseRouting();
 app.UseIdentityServer();
 
 app.UseAuthorization();
+
+app.MapControllers();
+
+app.MapFallbackToFile("index.html");
 
 app.MapRazorPages();
 
