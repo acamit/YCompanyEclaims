@@ -63,7 +63,8 @@
               "browserTarget": "IdentityServer:build:production"
             },
             "development": {
-              "browserTarget": "IdentityServer:build:development"
+              "browserTarget": "IdentityServer:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
