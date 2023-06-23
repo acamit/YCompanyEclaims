@@ -39,12 +39,12 @@
   <ItemGroup>
     <Content Remove="$(SpaRoot)**" />
     <None Remove="$(SpaRoot)**" />
-    <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**"  />
+    <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
-  <Target Name ="DebugEnsureNodeEnv" BeforeTargets="Build" Condition="'$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules')">
+  <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition="'$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules')">
     <Exec Command="node --version" ContinueOnError="true">
-      <Output TaskParameter="ExitCode" PropertyName="ErrorCode"/>
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
     </Exec>
     <Error Condition="'$(ErrorCode)' != '0'" Text="Node Js is required to run the project. Please install NodeJs" />
     <Message Importance="high" Text="Restoring dependecies using npm" />
@@ -52,12 +52,12 @@
   </Target>
 
   <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
-    <Exec WorkingDirectory ="$(SpaRoot)" Command="npm install"/>
-    <Exec WorkingDirectory ="$(SpaRoot)" Command="npm run build"/>
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" />
 
     <ItemGroup>
-      <DistFiles Include ="$(SpaRoot)dist\identity-server\**" />
-      <ResolvedFileToPublish Include="@DistFiles->'%(FilePath)')" Exclude="@(ResolvedFileToPublish)" >
+      <DistFiles Include="$(SpaRoot)dist\identity-server\**" />
+      <ResolvedFileToPublish Include="@(DistFiles->'%(FilePath)')" Exclude="@(ResolvedFileToPublish)">
         <RelativePath>wwwroot\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
